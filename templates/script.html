@@ -11,9 +11,11 @@
 	<p><strong>Description:</strong> {{ scripts.description }}</p>
 	<p><strong>Category:</strong> {{ scripts.category }}</p>
 
-	<textarea>{{ scripts.script }}</textarea>
+	
+	<pre><code class="language-sql">{{ scripts.script }}</code></pre>
 
 	
+	<script src="{{ url_for('static', filename='prism.js')}}"></script>
 	<script>
 
 			
