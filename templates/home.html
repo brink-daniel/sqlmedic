@@ -8,7 +8,8 @@ SQL Medic
 	from them. If you see an error, would like to contribute a script to the library or need help with your SQL Server,
 	please contact Daniel at daniel@sqlmedic.com</p>
 
-<div id="search-box">Search<input id="search" type="text" /><span id="search-results"></span></div>
+<h5>Scripts</h5>
+<div id="search-box"><span id="search-results"></span></div>
 
 <ul id="library">
 	{% for file in scripts %}
@@ -34,12 +35,12 @@ SQL Medic
 				$('#library').find('.script').not($('#library').find('.script:containsi("' + text + '")').show()).hide();
 
 				var m = $('#library').find('.script:visible').length;
-				var s = 'found ' + m + ' scripts';
-				if (m == 1) {
-					s = 'found 1 script';
+				var s = 'Search for "<strong>' + text + '</strong>" returned ' + m + ' script';
+				if (m > 1) {
+					s = s + "s";
 				}
 
-				$('#search-results').empty().text(s).append($('<span class="reset">(reset)</span>').click(function () {
+				$('#search-results').empty().html(s).append($('<span class="reset">(reset)</span>').click(function () {
 					reset();
 				}));
 			}
@@ -50,7 +51,7 @@ SQL Medic
 
 		var reset = function () {
 			$('#library').find('li:hidden').show();
-			$('#search-results').empty().text('showing ' + $('.script:visible').length + ' scripts');
+			$('#search-results').empty();
 			$('#search').val('');
 		};
 
@@ -62,6 +63,8 @@ SQL Medic
 		{
 			search($('#search').val());
 		}
+
+		$('#nav-home').addClass('active');
 		
 	});
 

@@ -1,0 +1,12 @@
+body {
+	padding-top: 5rem;
+}
+.content{
+	padding: 1.5rem;
+}
+
+.reset {
+	margin-left: 10px;
+	cursor: pointer;
+	color: red;
+}
