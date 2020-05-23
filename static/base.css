@@ -21,3 +21,21 @@ body {
 	border-radius: 5%;
 	margin-bottom: 20px;
 }
+
+#logo_small {
+	display: none;
+}
+
+@media (max-width:640px) {
+
+	#logo {		
+		display: none;
+	}
+
+
+	#logo_small {
+		display: block;
+	}
+
+
+}

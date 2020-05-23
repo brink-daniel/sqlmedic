@@ -42,12 +42,20 @@ About
 
 	$(document).on('keypress',function(e) {
 		if(e.which == 13) {
-			if ($('#search').val().length > 0)
-			{
-				window.location.href = "{{ url_for('home') }}?search=" + $('#search').val();
-			}
+			do_search();
 		}
 	});
+
+	$('#search-button').click(function(){
+		do_search();
+	});
+
+	var do_search = function(){
+		if ($('#search').val().length > 0)
+		{
+			window.location.href = "{{ url_for('home') }}?search=" + $('#search').val();
+		}
+	};
 
 </script>
 

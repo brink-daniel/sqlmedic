@@ -4,4 +4,28 @@ Page not found
 {% endblock %}
 {% block content %}
 <p>Nothing to see here. Move along.</p>
+
+<script>
+
+			
+	$(document).on('keypress',function(e) {
+		if(e.which == 13) {
+			do_search();
+		}
+	});
+
+
+	$('#search-button').click(function(){
+		do_search();
+	});
+
+	var do_search = function(){
+		if ($('#search').val().length > 0)
+		{
+			window.location.href = "{{ url_for('home') }}?search=" + $('#search').val();
+		}
+	};
+
+</script>
+
 {% endblock %}

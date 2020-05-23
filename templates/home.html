@@ -74,6 +74,11 @@ SQL Medic
 			search($(this).val());
 		});
 
+
+		$('#search-button').click(function(){
+			search($('#search').val());
+		});
+
 		var p = getUrlParameter('search');
 
 		if ($('#search').val().length > 0)

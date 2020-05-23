@@ -25,8 +25,9 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="{{ url_for('home') }}"><img
-                src="{{url_for('static', filename='logo.png')}}" /></a>
+        <a class="navbar-brand" href="{{ url_for('home') }}"><img id="logo"
+                src="{{url_for('static', filename='logo.png')}}" /><img id="logo_small"
+                src="{{url_for('static', filename='logo_small.png')}}" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,7 +45,7 @@
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-
+                <button id="search-button" class="btn btn-secondary my-2 my-sm-0" type="button">Search</button>
             </div>
         </div>
     </nav>
