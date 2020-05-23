@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block title %}
-
+{{ scripts.title }}
 {% endblock %}
 {% block content %}
+	
+	<h1>{{ scripts.title }}</h1>
+
+	<p>{{ scripts.author + ", " + scripts.date }}</p>
+
+	<p>{{ scripts.description }}</p>
+
+	<textarea>{{ scripts.script }}</textarea>
+
+	
+	
 {% endblock %}

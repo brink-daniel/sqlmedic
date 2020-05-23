@@ -14,9 +14,9 @@ def home():
 def about():
 	return render_template("about.html")
 
-@app.route("/contact/")
-def contact():
-	return render_template("contact.html")
+@app.route("/script/<string:script_id>")
+def script(script_id):
+	return render_template("script.html", scripts=get_tsql_scripts(script_id)[0])
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -33,6 +33,27 @@ class tsql_script:
 	script: str
 
 
+def get_tsql_scripts(script_id = ""):
+	list = []
+
+	for file in get_tsql_script_files():
+		file_content = open(file).read().strip()
+		if (script_id == "" or file_content.find("<Title>" + script_id + "</Title>") > -1):		
+			list.append(
+				tsql_script(
+					title = get_value_from_xml_string(file_content, "<Title>"),
+					description = get_value_from_xml_string(file_content, "<Description>"),
+					author = get_value_from_xml_string(file_content, "<Author>"),
+					date = get_value_from_xml_string(file_content, "<Date>"),
+					category = get_value_from_xml_string(file_content, "<Category>"),
+					script = file_content
+				)
+			)
+		#if (len(script_id) > 0 and list.count > 0):
+		#	break
+
+	return sorted(list, key=lambda x: (x.category, x.title))
+
 def	get_value_from_xml_string(value : str, tag : str):
 	start = value.find(tag) + len(tag)
 	end = value.find(tag.replace("<", "</"))
@@ -44,23 +65,6 @@ def	get_value_from_xml_string(value : str, tag : str):
 def get_tsql_script_files():
 	return [f for f in glob.glob("static/tsql/*.sql")]
 
-def get_tsql_scripts():
-	list = []
-
-	for file in get_tsql_script_files():
-		file_content = open(file).read().strip()
-		list.append(
-			tsql_script(
-				title = get_value_from_xml_string(file_content, "<Title>"),
-				description = get_value_from_xml_string(file_content, "<Description>"),
-				author = get_value_from_xml_string(file_content, "<Author>"),
-				date = get_value_from_xml_string(file_content, "<Date>"),
-				category = get_value_from_xml_string(file_content, "<Category>"),
-				script = file_content
-			)
-		)
-
-	return sorted(list, key=lambda x: (x.category, x.title))
 
 
 

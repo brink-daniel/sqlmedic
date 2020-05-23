@@ -6,7 +6,7 @@ SQL Medic
 
 <ul>
 	{% for file in scripts %}
-		<li>{{ file.category + " - " + file.title }}</li>
+		<li><a href="script/{{ file.title }}">{{ file.category + " - " + file.title }}</a></li>
 	{% endfor %}
 </ul>
 
