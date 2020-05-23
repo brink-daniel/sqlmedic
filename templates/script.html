@@ -4,14 +4,28 @@
 {% endblock %}
 {% block content %}
 	
-	<h1>{{ scripts.title }}</h1>
+	<h5>{{ scripts.title }}</h5>
 
 	<p>{{ scripts.author + ", " + scripts.date }}</p>
 
-	<p>{{ scripts.description }}</p>
+	<p><strong>Description:</strong> {{ scripts.description }}</p>
+	<p><strong>Category:</strong> {{ scripts.category }}</p>
 
 	<textarea>{{ scripts.script }}</textarea>
 
 	
+	<script>
+
+			
+		$(document).on('keypress',function(e) {
+			if(e.which == 13) {
+				if ($('#search').val().length > 0)
+				{
+					window.location.href = "{{ url_for('home') }}?search=" + $('#search').val();
+				}
+			}
+		});
+	
+	</script>
 	
 {% endblock %}
