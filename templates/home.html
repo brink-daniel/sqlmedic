@@ -4,13 +4,70 @@ SQL Medic
 {% endblock %}
 {% block content %}
 
-<p>SQL Medic is a public SQL Server script library. Please feel free to use any of the SQL scripts or take inspiration from them. If you see an error or would like to contribute a script to the library, please contact Daniel at daniel@sqlmedic.com</p>
+<p>SQL Medic is a public SQL Server script library. Please feel free to use any of the SQL scripts or take inspiration
+	from them. If you see an error, would like to contribute a script to the library or need help with your SQL Server,
+	please contact Daniel at daniel@sqlmedic.com</p>
 
-<ul>
+<div id="search-box">Search<input id="search" type="text" /><span id="search-results"></span></div>
+
+<ul id="library">
 	{% for file in scripts %}
-		<li><a href="script/{{ file.title }}" title="{{ file.description }}">{{ file.category + " - " + file.title }}</a></li>
+	<li class="script"><a href="script/{{ file.title }}" title="{{ file.description }}">{{ file.category + " - " + file.title }}</a>
+	</li>
 	{% endfor %}
 </ul>
+
+
+<script>
+
+	$(document).ready(function () {
+
+		$.extend($.expr[':'], {
+			'containsi': function (elem, i, match, array) {
+				return (elem.textContent || elem.innerText || '').toLowerCase()
+					.indexOf((match[3] || "").toLowerCase()) >= 0;
+			}
+		});		
+
+		var search = function (text) {
+			if (text.length > 0) {
+				$('#library').find('.script').not($('#library').find('.script:containsi("' + text + '")').show()).hide();
+
+				var m = $('#library').find('.script:visible').length;
+				var s = 'found ' + m + ' scripts';
+				if (m == 1) {
+					s = 'found 1 script';
+				}
+
+				$('#search-results').empty().text(s).append($('<span class="reset">(reset)</span>').click(function () {
+					reset();
+				}));
+			}
+			else {
+				reset();
+			}
+		};
+
+		var reset = function () {
+			$('#library').find('li:hidden').show();
+			$('#search-results').empty().text('showing ' + $('.script:visible').length + ' scripts');
+			$('#search').val('');
+		};
+
+		$('#search').keyup(function () {
+			search($(this).val());
+		});
+
+		if ($('#search').val().length > 0)
+		{
+			search($('#search').val());
+		}
+		
+	});
+
+
+
+</script>
 
 
 {% endblock %}
