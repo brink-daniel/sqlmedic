@@ -16,7 +16,11 @@ def about():
 
 @app.route("/script/<string:script_id>")
 def script(script_id):
-	return render_template("script.html", scripts=get_tsql_scripts(script_id)[0])
+	script = get_tsql_scripts(script_id)
+	if len(script) == 1:
+		return render_template("script.html", scripts=script[0])
+	else:
+		return render_template('page_not_found.html'), 404
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -49,8 +53,8 @@ def get_tsql_scripts(script_id = ""):
 					script = file_content
 				)
 			)
-		#if (len(script_id) > 0 and list.count > 0):
-		#	break
+		if (len(script_id) > 0 and len(list) > 0):
+			break
 
 	return sorted(list, key=lambda x: (x.category, x.title))
 
