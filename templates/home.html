@@ -3,5 +3,12 @@
 SQL Medic
 {% endblock %}
 {% block content %}
-<p>Todo: Create list of SQL scripts</p>
+
+<ul>
+	{% for file in scripts %}
+		<li>{{ file.category + " - " + file.title }}</li>
+	{% endfor %}
+</ul>
+
+
 {% endblock %}

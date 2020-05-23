@@ -71,7 +71,7 @@ go
 
 
 --now you can also query the table AS AT a specific time
---NB: We didn’t import the old audit data, you will have to migrate your audit data
+--NB: We didnï¿½t import the old audit data, you will have to migrate your audit data
 
 declare @businessDate datetime2 = '03 June 2016'
 
@@ -92,10 +92,5 @@ from MyTableNameHere for system_time between @start to @end --exclusive of start
 
 select top 100 * 
 from MyTableNameHere for system_time contained in (@start, @end) --inclusive of delimiters
-
-
-
-
-
 
  

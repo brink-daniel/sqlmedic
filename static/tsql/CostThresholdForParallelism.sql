@@ -23,11 +23,10 @@ create table #StatementSubTreeCost(
 );
 
 
-  
 with xmlnamespaces (default 'http://schemas.microsoft.com/sqlserver/2004/07/showplan') 
 insert into #StatementSubTreeCost (StatementSubTreeCost) 
 select 
-    cast(n.value('(@statementsubtreecost)[1]', 'varchar(128)') as decimal(18,2)) as StatementSubTreeCost
+	cast(n.value('(@statementsubtreecost)[1]', 'varchar(128)') as decimal(18,2)) as StatementSubTreeCost
 from 
 	sys.dm_exec_cached_plans as cp 
 
@@ -36,7 +35,7 @@ from
 	cross apply query_plan.nodes('/showplanxml/batchsequence/batch/statements/stmtsimple') as qn(n) 
 
 where n.query('.').exist('//relop[@physicalop="parallelism"]') = 1
-  
+
 
 
 select 
@@ -47,9 +46,9 @@ select
 	(
 		select top 1 
 			StatementSubTreeCost as mode 
-		from   #StatementSubTreeCost 
-		group by StatementSubTreeCost 
-		order by count(StatementSubTreeCost) desc
+		from #StatementSubTreeCost 
+		group by StatementSubTreeCost 
+		order by count(StatementSubTreeCost) desc
 	) as mode, --most frequent
 	(
 		select top 1
@@ -59,6 +58,6 @@ select
 	
 
 from #StatementSubTreeCost
-  
+
 
 drop table #StatementSubTreeCost

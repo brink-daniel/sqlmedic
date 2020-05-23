@@ -7,9 +7,8 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
-        <a href="{{ url_for('home') }}" ><img src="{{url_for('static', filename='logo.png')}}" /></a>
         <div class="navbar">
-            <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('home') }}" class="navbar-brand"><img src="{{url_for('static', filename='logo.png')}}" /></a>
             <a href="{{ url_for('about') }}" class="navbar-item">About</a>
             <a href="{{ url_for('contact') }}" class="navbar-item">Contact</a>
         </div>
