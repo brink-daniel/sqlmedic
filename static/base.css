@@ -10,3 +10,14 @@ body {
 	cursor: pointer;
 	color: red;
 }
+
+.social{
+	height: 20px;
+	width: 20px;
+	margin-right: 5px;
+}
+
+.photo{
+	border-radius: 5%;
+	margin-bottom: 20px;
+}
