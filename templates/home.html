@@ -77,6 +77,7 @@ SQL Medic
 
 		$('#search-button').click(function(){
 			search($('#search').val());
+			$('.navbar-toggler:visible').click(); 
 		});
 
 		var p = getUrlParameter('search');
@@ -92,6 +93,8 @@ SQL Medic
 		}
 
 		$('#nav-home').addClass('active');
+		
+
 		
 	});
 
