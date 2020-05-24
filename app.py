@@ -50,7 +50,7 @@ def get_tsql_scripts(script_id = ""):
 					author = get_value_from_xml_string(file_content, "<Author>"),
 					date = get_value_from_xml_string(file_content, "<Date>"),
 					category = get_value_from_xml_string(file_content, "<Category>"),
-					script = file_content
+					script = remove_boilerplate(file_content)
 				)
 			)
 		if (len(script_id) > 0 and len(list) > 0):
@@ -68,6 +68,10 @@ def	get_value_from_xml_string(value : str, tag : str):
 
 def get_tsql_script_files():
 	return [f for f in glob.glob("static/tsql/*.sql")]
+
+def remove_boilerplate(value : str): 
+	return value[value.find("*/") + 2:len(value)].strip()
+
 
 
 
