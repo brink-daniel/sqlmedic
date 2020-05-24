@@ -2,6 +2,12 @@
 {% block title %}
 {{ scripts.title }}
 {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='prism.css')}}" />
+{% endblock %}
+
+
 {% block content %}
 	
 	<h5>{{ scripts.title }}</h5>
