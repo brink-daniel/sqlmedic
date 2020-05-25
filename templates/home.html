@@ -46,7 +46,7 @@ SQL Medic
 			}
 			else {
 				reset();
-			}
+			}			
 		};
 
 		var reset = function () {
@@ -70,15 +70,23 @@ SQL Medic
 			}
 		};
 
-		$('#search').keyup(function () {
-			search($(this).val());
+		
+
+		$(document).on('keypress',function(e) {
+			if(e.which == 13) {
+				do_search();	
+			}
 		});
 
 
 		$('#search-button').click(function(){
+			do_search();
+		});
+
+		var do_search = function(){
 			search($('#search').val());
 			$('.navbar-toggler:visible').click(); 
-		});
+		}
 
 		var p = getUrlParameter('search');
 
