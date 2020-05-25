@@ -10,14 +10,11 @@
 
 {% block content %}
 	
-	<h5>{{ scripts.title }}</h5>
-
-	<p>{{ scripts.author + ", " + scripts.date }}</p>
+	<h5>{{ scripts.category }} - {{ scripts.title }}<br/><small class="text-muted">{{ scripts.author }} - {{ scripts.date }}</small></h5>
 
 	<p><strong>Description:</strong> {{ scripts.description }}</p>
-	<p><strong>Category:</strong> {{ scripts.category }}</p>
-
 	
+
 	<pre><code class="language-sql">{{ scripts.script }}</code></pre>
 
 	
