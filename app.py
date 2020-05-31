@@ -41,7 +41,7 @@ def get_tsql_scripts(script_id = ""):
 	list = []
 
 	for file in get_tsql_script_files():
-		file_content = open(file).read().strip()
+		file_content = open(file, "r", encoding="utf-8").read().strip()
 		if (script_id == "" or file_content.find("<Title>" + script_id + "</Title>") > -1):		
 			list.append(
 				tsql_script(
@@ -72,8 +72,8 @@ def get_tsql_script_files():
 def remove_boilerplate(value : str): 
 	return value[value.find("*/") + 2:len(value)].strip()
 
-
-
+if __name__ == "__main__":
+    app.run()
 
 
 
