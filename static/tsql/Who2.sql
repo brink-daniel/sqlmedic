@@ -21,7 +21,8 @@
 
 
 --new version
-select * from sys.dm_exec_sessions as es cross apply sys.dm_exec_input_buffer(es.session_id, null) as ib
+select *
+from sys.dm_exec_sessions as es cross apply sys.dm_exec_input_buffer(es.session_id, null) as ib
 
 
 --old version
@@ -30,7 +31,8 @@ set transaction isolation level read uncommitted
 
 
 
-create table #who2 (
+create table #who2
+(
 	[SPID] smallint,
 	[Status] nvarchar(30),
 	[Blocked by] smallint,
@@ -44,21 +46,22 @@ create table #who2 (
 	[CPU time (seconds)] decimal(26,2),
 	[Reads] bigint,
 	[Writes] bigint,
-	[Logical reads] bigint	
+	[Logical reads] bigint
 )
 
 
 
-insert into #who2 ([SPID],[Status],[Blocked by],[Event info],
+insert into #who2
+	([SPID],[Status],[Blocked by],[Event info],
 	[Command text],[Login],[Host name],[Database],[Program],
 	[Total elapsed time (seconds)],[CPU time (seconds)],
 	[Reads],[Writes],[Logical reads])
-select  
+select
 	r.session_id as [SPID],
 	r.[status] as [Status],
 	r.blocking_session_id as [Blocked by],
 	convert(varchar(max), '') as [Event info],
-	t.[text] as [Command text],	
+	t.[text] as [Command text],
 	s.login_name as [Login],
 	s.[host_name] as [Host name],
 	db_name(r.database_id) as [Database],
@@ -69,7 +72,7 @@ select
 	r.writes as [Writes],
 	r.logical_reads as [Logical reads]
 
-	        
+
 from
 	sys.dm_exec_requests as r
 
@@ -78,11 +81,12 @@ from
 		and s.is_user_process = 1
 	
 	cross apply sys.dm_exec_sql_text(r.[sql_handle]) as t
-	
+
 where r.session_id <> @@spid
 
 
-create table #info (
+create table #info
+(
 	[EventType] varchar(max),
 	[Parameters] varchar(max),
 	[EventInfo] varchar(max)
@@ -95,47 +99,53 @@ declare
 	@EventInfo varchar(max)
 
 
-create table #spid (
+create table #spid
+(
 	spid int
 )
 
-insert into #spid (spid)
+insert into #spid
+	(spid)
 select distinct
 	spid
 from #who2
 
 
 
-while exists (select * from #spid)
+while exists (select *
+from #spid)
 begin
 	delete from #info
-	
-	
+
+
 	select top 1
 		@spid = spid,
 		@EventInfo = null
 	from #spid
-	
+
 	delete from #spid where spid = @spid
-	
+
 	select @sql = N'DBCC INPUTBUFFER(' + convert(nvarchar,@spid) + ')'
-	
+
 	begin try
-		insert into #info ([EventType], [Parameters],[EventInfo])
-		exec sp_executesql @statement=@sql with recompile
+		insert into #info
+		([EventType], [Parameters],[EventInfo])
+	exec sp_executesql @statement=@sql with recompile
 	end try
 	begin catch
 	
 	end catch
-	
-	
-	
+
+
+
 	update #who2
 	set		
-		[Event info] = (select top 1 [EventInfo]	from #info)
+		[Event info] = (select top 1
+		[EventInfo]
+	from #info)
 	where SPID = @spid
 
-	
+
 end
 
 
@@ -153,8 +163,8 @@ select
 	[CPU time (seconds)],
 	[Reads],
 	[Writes],
-	[Logical reads]	
-	
+	[Logical reads]
+
 from #who2
 order by
 	[CPU time (seconds)] desc
