@@ -1,4 +1,4 @@
-﻿/*
+/*
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>02 Jan 2014</Date>
