@@ -3,6 +3,7 @@ from flask import render_template
 from dataclasses import dataclass
 
 import glob
+import os
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ def home():
 @app.route("/about/")
 def about():
 	return render_template("about.html")
+
 
 @app.route("/script/<string:script_id>")
 def script(script_id):
@@ -67,7 +69,8 @@ def	get_value_from_xml_string(value : str, tag : str):
 		return "#n/a"
 
 def get_tsql_script_files():
-	return [f for f in glob.glob("static/tsql/*.sql")]
+        location = os.path.join(app.static_folder, 'tsql') + "/*.sql"
+        return [f for f in glob.glob(location)]
 
 def remove_boilerplate(value : str): 
 	return value[value.find("*/") + 2:len(value)].strip()
