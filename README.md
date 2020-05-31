@@ -8,7 +8,7 @@ SQL Medic is a public T-SQL script library for SQL Developers and Administrators
 
 			
 ## tech stack used
-* ~~Microsoft Azure App Services (Free Tier)~~ Rapberry Pi + Apache
+* ~~Microsoft Azure App Services (Free Tier)~~ Raspberry Pi + Apache
 * Python 3
 * Flask
 * TSQL
