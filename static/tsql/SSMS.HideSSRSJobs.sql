@@ -2,8 +2,8 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>01 Jun 2020</Date>
-	<Title>Hide SSRS Jobs</Title>
-	<Description>Hide the SQL Agent jobs created by SSRS by modifying MSDB.dbo.sp_help_category.</Description>
+	<Title>Hide SSRS Jobs in SQL Agent</Title>
+	<Description>Modify MSDB.dbo.sp_help_category to hide SSRS jobs in SQL Agent.</Description>
 	<Pass></Pass>	
 	<Fail></Fail>
 	<Check>false</Check>
