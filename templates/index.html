@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}
+Index
+{% endblock %}
+{% block content %}
+
+<h5>T-SQL Scripts ({{ scripts|length }})</h5>
+<div id="search-box"><span id="search-results"></span></div>
+
+<ul id="library">
+	{% for file in scripts %}
+	<li class="script"><a href="{{ url_for('script', script_id=file.title) }}" title="{{ file.description }}">{{ file.category + " - " + file.title }}</a>
+	</li>
+	{% endfor %}
+</ul>
+
+
+<script>
+
+	$(document).ready(function () {
+
+		$.extend($.expr[':'], {
+			'containsi': function (elem, i, match, array) {
+				return (elem.textContent || elem.innerText || '').toLowerCase()
+					.indexOf((match[3] || "").toLowerCase()) >= 0;
+			}
+		});		
+
+		var search = function (text) {
+			if (text.length > 0) {
+				$('#library').find('.script').not($('#library').find('.script:containsi("' + text + '")').show()).hide();
+
+				var m = $('#library').find('.script:visible').length;
+				var s = 'Search for "<strong>' + text + '</strong>" returned ' + m + ' script';
+				if (m > 1) {
+					s = s + "s";
+				}
+
+				$('#search-results').empty().html(s).append($('<span class="reset">(reset)</span>').click(function () {
+					reset();
+				}));
+			}
+			else {
+				reset();
+			}			
+		};
+
+		var reset = function () {
+			$('#library').find('li:hidden').show();
+			$('#search-results').empty();
+			$('#search').val('');
+		};
+
+		var getUrlParameter = function getUrlParameter(sParam) {
+			var sPageURL = window.location.search.substring(1),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+				}
+			}
+		};
+
+		
+
+		$(document).on('keypress',function(e) {
+			if(e.which == 13) {
+				do_search();	
+			}
+		});
+
+
+		$('#search-button').click(function(){
+			do_search();
+		});
+
+		var do_search = function(){
+			search($('#search').val());
+			$('.navbar-toggler:visible').click(); 
+		}
+
+		var p = getUrlParameter('search');
+
+		if ($('#search').val().length > 0)
+		{
+			search($('#search').val());
+		}
+		else if (p && p.length > 0)
+		{
+			$('#search').val(p);
+			search(p);		
+		}
+
+		$('#nav-index').addClass('active');
+		
+
+		
+	});
+
+
+
+</script>
+
+
+{% endblock %}

@@ -9,7 +9,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-	return render_template("home.html", scripts=get_tsql_scripts())
+	return render_template("home.html")
+
+@app.route("/index/")
+def index():
+	return render_template("index.html", scripts=get_tsql_scripts())
 
 @app.route("/about/")
 def about():

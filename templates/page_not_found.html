@@ -22,7 +22,7 @@ Page not found
 	var do_search = function(){
 		if ($('#search').val().length > 0)
 		{
-			window.location.href = "{{ url_for('home') }}?search=" + $('#search').val();
+			window.location.href = "{{ url_for('index') }}?search=" + $('#search').val();
 		}
 	};
 
