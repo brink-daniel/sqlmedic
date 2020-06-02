@@ -56,13 +56,17 @@ def get_tsql_scripts(script_id = ""):
 					author = get_value_from_xml_string(file_content, "<Author>"),
 					date = get_value_from_xml_string(file_content, "<Date>"),
 					category = get_value_from_xml_string(file_content, "<Category>"),
-					script = remove_boilerplate(file_content)
+					script = get_license() + remove_boilerplate(file_content)
 				)
 			)
 		if (len(script_id) > 0 and len(list) > 0):
 			break
 
 	return sorted(list, key=lambda x: (x.category, x.title))
+
+
+def get_license():
+	return "/*\nGNU General Public License v3.0\nhttps://github.com/brink-daniel/sqlmedic/blob/master/LICENSE\n*/\n"
 
 def	get_value_from_xml_string(value : str, tag : str):
 	start = value.find(tag) + len(tag)
