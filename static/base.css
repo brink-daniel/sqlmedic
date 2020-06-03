@@ -31,6 +31,11 @@ ul.blog {
 	padding-left: 0;
 }
 
+a {
+
+	color: #191919;
+}
+
 @media (max-width:640px) {
 
 	#logo {		
