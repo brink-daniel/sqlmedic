@@ -26,6 +26,11 @@ body {
 	display: none;
 }
 
+ul.blog {
+	list-style-type: none;
+	padding-left: 0;
+}
+
 @media (max-width:640px) {
 
 	#logo {		

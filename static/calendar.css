@@ -1,0 +1,54 @@
+
+
+time.icon
+{
+  font-size: .3em; 
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: #fff;
+  margin: 1em;
+  border-radius: 0.6em;
+  box-shadow: 1px 2px #f8f9fa;
+  overflow: hidden;
+  float: left;  
+}
+
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+
+
+time.icon strong
+{
+  position: absolute;
+  top: 0;
+  padding: 0.4em 0;
+  color: #fff;
+  background-color: #910a1f;
+}
+
+time.icon em
+{
+  position: absolute;
+  bottom: 0.3em;
+  color: #910a1f;
+}
+
+time.icon span
+{
+  width: 100%;
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 0.8em;
+  color: #2f2f2f;
+}
+

@@ -2,9 +2,18 @@
 {% block title %}
 SQL Medic
 {% endblock %}
+
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='calendar.css')}}" />
+
+{% endblock %}
+
+
 {% block content %}
 
-<p>SQL Medic is a public t-sql script library for SQL Developers and Administrators. Please feel free to use any of the scripts or take inspiration
+<p>SQL Medic is a public t-sql script library for SQL Developers and Administrators. Please feel free to use any of the
+	scripts or take inspiration
 	from them. If you see an error, would like to contribute a script to the library or need help with your SQL Server,
 	please contact Daniel at brink.daniel@gmail.com</p>
 
@@ -14,17 +23,24 @@ SQL Medic
 <ul class="blog">
 	{% for file in scripts %}
 	<li class="script">
+		<time datetime="2014-09-20" class="icon">
+			<em>{{ file.date.strftime('%A') }}</em>
+			<strong>{{ file.date.strftime('%B') }}</strong>
+			<span>{{ file.date.strftime('%d') }}</span>
+		</time>
 		<h5>
-		<a href="{{ url_for('script', script_id=file.title) }}">{{ file.title }}</a>
-		<small>{{ file.date.strftime('%d %b %Y')  }}</small>
-	</h5>
+			<a href="{{ url_for('script', script_id=file.title) }}">{{ file.title }}</a>
+		</h5>
 		<p>{{ file.description }}</p>
+
 	</li>
 	{% endfor %}
 </ul>
 
 
 <a href="{{ url_for('index') }}">Get more scripts</a>
+
+
 
 
 
@@ -37,29 +53,28 @@ SQL Medic
 
 	$(document).ready(function () {
 
-	
-		$(document).on('keypress',function(e) {
-			if(e.which == 13) {
+
+		$(document).on('keypress', function (e) {
+			if (e.which == 13) {
 				do_search();
 			}
 		});
 
 
-		$('#search-button').click(function(){
+		$('#search-button').click(function () {
 			do_search();
 		});
 
-		var do_search = function(){
-			if ($('#search').val().length > 0)
-			{
+		var do_search = function () {
+			if ($('#search').val().length > 0) {
 				window.location.href = "{{ url_for('index') }}?search=" + $('#search').val();
 			}
 		};
 
 		$('#nav-home').addClass('active');
-		
 
-		
+
+
 	});
 
 
