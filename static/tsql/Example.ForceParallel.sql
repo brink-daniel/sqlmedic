@@ -1,7 +1,7 @@
 /*
 <Script>
 	<Author>Daniel Brink</Author>
-	<Date>15 June 2016</Date>
+	<Date>15 Jun 2016</Date>
 	<Title>Force parallel execution plan</Title>
 	<Description>The generation of parallel execution plans can be forced using the undocumented trace flag 8649. Do not use this on production environments.</Description>
 	<Pass></Pass>	

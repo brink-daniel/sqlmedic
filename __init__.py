@@ -1,9 +1,11 @@
 from flask import Flask
 from flask import render_template
 from dataclasses import dataclass
+from datetime import datetime
 
 import glob
 import os
+
 
 app = Flask(__name__)
 
@@ -51,7 +53,7 @@ def get_tsql_scripts():
 				title = get_value_from_xml_string(file_content, "<Title>"),
 				description = get_value_from_xml_string(file_content, "<Description>"),
 				author = get_value_from_xml_string(file_content, "<Author>"),
-				date = get_value_from_xml_string(file_content, "<Date>"),
+				date = datetime.strptime(get_value_from_xml_string(file_content, "<Date>"), '%d %b %Y'),
 				category = get_value_from_xml_string(file_content, "<Category>"),
 				script = get_license() + remove_boilerplate(file_content)
 			)
