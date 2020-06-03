@@ -8,7 +8,8 @@ time.icon
   width: 7em;
   height: 7em;
   background-color: #fff;
-  margin: 1em;
+  margin-top: 1em;
+  margin-right: 1em;
   border-radius: 0.6em;
   box-shadow: 1px 2px #f8f9fa;
   overflow: hidden;
