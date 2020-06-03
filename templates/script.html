@@ -18,28 +18,35 @@
 	<pre><code class="language-sql">{{ scripts.script }}</code></pre>
 
 	
-	<script src="{{ url_for('static', filename='prism.js')}}"></script>
-	<script>
 
-			
-		$(document).on('keypress',function(e) {
-			if(e.which == 13) {
-				do_search();
-			}
-		});
+	
+{% endblock %}
 
 
-		$('#search-button').click(function(){
+{% block footer %}
+
+<script src="{{ url_for('static', filename='prism.js')}}"></script>
+<script>
+
+		
+	$(document).on('keypress',function(e) {
+		if(e.which == 13) {
 			do_search();
-		});
+		}
+	});
 
-		var do_search = function(){
-			if ($('#search').val().length > 0)
-			{
-				window.location.href = "{{ url_for('index') }}?search=" + $('#search').val();
-			}
-		};
-	
-	</script>
-	
+
+	$('#search-button').click(function(){
+		do_search();
+	});
+
+	var do_search = function(){
+		if ($('#search').val().length > 0)
+		{
+			window.location.href = "{{ url_for('index') }}?search=" + $('#search').val();
+		}
+	};
+
+</script>
+
 {% endblock %}
