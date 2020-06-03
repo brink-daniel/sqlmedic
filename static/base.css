@@ -26,13 +26,21 @@ body {
 	display: none;
 }
 
+h5.blog{
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
 ul.blog {
 	list-style-type: none;
 	padding-left: 0;
 }
 
-a {
+li.blog {
+	margin-bottom: 2em;
+}
 
+a {
 	color: #2f2f2f;
 }
 
