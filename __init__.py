@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import glob
 import os
@@ -12,7 +12,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-	return render_template("home.html")
+	d = datetime.now() - timedelta(days=30)
+	script = [f for f in filter(lambda x: x.date >= d, script_collection)]
+	script = sorted(script, key=lambda x: (x.date, x.title), reverse=True)
+	return render_template("home.html", scripts=script)
+
 
 @app.route("/index/")
 def index():
