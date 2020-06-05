@@ -8,6 +8,7 @@ SQL Medic is a public t-sql script library for SQL Developers and Administrators
 
 
 ## Categories
+There are nearly 200 tsql scripts in the library and more are frequenly added. The scripts cover the following categories:
 * Always-on
 * Baseline
 * Security
@@ -25,6 +26,7 @@ SQL Medic is a public t-sql script library for SQL Developers and Administrators
 
 			
 ## Tech Stack
+The following languages and technologes were used to build [https://sqlmedic.com](https://sqlmedic.com)
 * Raspberry Pi
 * Apache
 * Python 3
