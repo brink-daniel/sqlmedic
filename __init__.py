@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-	d = datetime.now() - timedelta(days=30)
+	d = datetime.now() - timedelta(days=60)
 	script = [f for f in filter(lambda x: x.date >= d, script_collection)]
 	script = sorted(script, key=lambda x: (x.date, x.title), reverse=True)
 	return render_template("home.html", scripts=script)
