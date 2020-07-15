@@ -2,7 +2,7 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>02 Jan 2014</Date>
-	<Title>Current activity</Title>
+	<Title>Current activity (old version)</Title>
 	<Description></Description>
 	<Pass></Pass>	
 	<Fail></Fail>

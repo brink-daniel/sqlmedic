@@ -2,9 +2,9 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>14 Jul 2020</Date>
-	<Title>Current activity (who4)</Title>
-	<Description>See all user queries currently running, including query plan and job names.</Description>
-	<Pass></Pass>	
+	<Title>Current activity</Title>
+	<Description>See all user queries that are currently running, including the query plan and job names.</Description>
+	<Pass></Pass>
 	<Fail></Fail>
 	<Check>false</Check>
 	<Advanced>true</Advanced>
