@@ -22,7 +22,12 @@
 
 
 --see current server configurations
-exec sp_configure
+--exec sp_configure
+select 
+	name,
+	value_in_use
+from sys.configurations
+where name = 'remote admin connections'
 go
 
 
