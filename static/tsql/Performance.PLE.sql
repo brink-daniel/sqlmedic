@@ -21,9 +21,9 @@
 */
 
 select 
-    cntr_value as [PLE (seconds)]
+	object_name
+	,counter_name
+	,cntr_value
 from sys.dm_os_performance_counters
-where
-    counter_name = 'Page life expectancy'
-    and object_name = 'SQLServer:Buffer Manager'
+where counter_name = 'Page life expectancy'
 
