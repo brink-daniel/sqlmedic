@@ -10,10 +10,10 @@
 
 {% block content %}
 	
-	<h5>{{ scripts.category }} - {{ scripts.title }}<br/><small class="text-muted">{{ scripts.author }} - {{ scripts.date.strftime('%d %b %Y') }}</small></h5>
+	<h5>{{ scripts.category }} - {{ scripts.title }}</h5>
 
 	<p><strong>Description:</strong> {{ scripts.description }}</p>
-	
+	<p>{{ scripts.author }} - {{ scripts.date.strftime('%d %b %Y') }}</p>
 
 	<pre><code class="language-sql">{{ scripts.script }}</code></pre>
 
