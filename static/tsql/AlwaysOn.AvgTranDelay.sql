@@ -3,7 +3,7 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>22 Jul 2020</Date>
-	<Title>AlwaysOn - Calculate Avg Transaction Delay</Title>
+	<Title>Calculate Average Transaction Delay</Title>
 	<Description>When using Always On in Synchronous-commit mode, transactions wait to send the transaction confirmation to the client until the secondary replica has hardened the log to disk. This script uses performance counters to measure the Avg Transaction Delay caused by having to wait for the transaction to be hardened to the synchronous secondary.</Description>
 	<Pass></Pass>	
 	<Fail></Fail>
