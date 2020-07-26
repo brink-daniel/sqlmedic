@@ -4,7 +4,7 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>19 Feb 2014</Date>
-	<Title>Jobs failure alert</Title>
+	<Title>Job failure alert</Title>
 	<Description>It is recommended to configure all SQL Agent Jobs to send an alert email when the job fails.</Description>
 	<Pass>All jobs are configured to notify an operator when they fail.</Pass>	
 	<Fail>{x} jobs found which are not set to alert an operator when they fail.</Fail>
