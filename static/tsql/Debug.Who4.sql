@@ -52,7 +52,7 @@ from
 
 	cross apply sys.dm_exec_input_buffer(s.session_id, r.request_id) as i
 
-	cross apply sys.dm_exec_text_query_plan(r.plan_handle, r.statement_start_offset, r.statement_end_offset) as p
+	outer apply sys.dm_exec_text_query_plan(r.plan_handle, r.statement_start_offset, r.statement_end_offset) as p
 
 	left join msdb..sysjobs as j
 	on j.job_id = case when s.program_name like 'SQLAgent - TSQL JobStep (Job % : Step %)' then cast(Convert(binary(16), substring(s.program_name, 30, 34), 1) as uniqueidentifier) else null end
