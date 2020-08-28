@@ -2,8 +2,8 @@
 <Script>
 	<Author>Daniel Brink</Author>
 	<Date>28 Aug 2020</Date>
-	<Title>Query Performance Optimisation Checklist</Title>
-	<Description>Check list to help solve query performance issues.</Description>
+	<Title>Solve query performance issues</Title>
+	<Description>Checklist to help identify the cause of slow query performance.</Description>
 	<Pass></Pass>	
 	<Fail></Fail>
 	<Check>false</Check>
