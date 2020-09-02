@@ -51,7 +51,7 @@ Why is my query running slow?
 - SQL not using all CPU cores
 - Misaligned NUMA nodes in virtual machine
 - Incorrectly configured network cards
-- Resorce governor limiting CPU, I/O or memory
+- Resource governor limiting CPU, I/O or memory
 - Blocking queries
 - Joins across linked servers
 - Other query activty in SQL, activity in the OS or local services, e.g. SSAS, SSIS or SSRS 
