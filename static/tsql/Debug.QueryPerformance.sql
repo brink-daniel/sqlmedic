@@ -43,6 +43,7 @@ Why is my query running slow?
 - Joins on table valued functions
 - Doing row lookups against a column store index, instead of range selects
 - MAXDOP settings
+- Cardinality Estimation (CE) / Compatibility level
 - Missing SQL patches
 - ARITHABORT
 - Insufficient memory
