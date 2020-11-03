@@ -37,7 +37,7 @@ go
 
 declare 
 	@current_path varchar(250) = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\'
-	,@new_path varchar(250) = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\SYS\';
+	,@new_path varchar(250) = 'S:\DATA\';
 
 declare @sql nvarchar(max) = ''
 select 
