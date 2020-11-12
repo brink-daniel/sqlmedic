@@ -49,7 +49,7 @@ begin
 	
 	if @bitIncludeRPC = 0 and @bitIncludeSQLBatch = 0
 	begin
-		raiserror('PRC and/or SQL Batch must be selected', 16, 1)
+		raiserror('RPC and/or SQL Batch must be selected', 16, 1)
 		return
 	end
 
