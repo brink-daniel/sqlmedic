@@ -3,7 +3,7 @@
 	<Author>Daniel Brink</Author>
 	<Date>12 Jan 2014</Date>
 	<Title>Deadlocks</Title>
-	<Description>A deadlock occurs when two or more tasks permanently block each other by each task having a lock on a resource which the other tasks are trying to lock.</Description>
+	<Description>A deadlock occurs when two or more queries block each other from running, because each have a lock on a resource which the other wants. This script queries the default system health extended event for recent deadlocks and returns the deadlock graph.</Description>
 	<Pass>No deadlocks occurred within the last 24 hours.</Pass>	
 	<Fail>{x} deadlock(s) occurred within the last 24 hours.</Fail>
 	<Check>true</Check>
