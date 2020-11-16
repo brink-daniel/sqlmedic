@@ -111,7 +111,7 @@ create queue GenericQueue with
 status = on 
 , activation (
 	status = on
-	, max_queue_readers = 1 --number of instances of ProcessGenericMessageQueue
+	, max_queue_readers = 10 --number of instances of ProcessGenericMessageQueue
 	, procedure_name = dbo.ProcessGenericMessageQueue
 	, execute as owner
 ); 
