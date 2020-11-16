@@ -59,31 +59,40 @@ as
 begin
 	declare 
 		@handle uniqueidentifier, 
-		@body xml, 
-		@received datetime;
+		@body varbinary(max), 
+		@received datetimeoffset;
 
-	while (1 = 1)
-	begin		
-		waitfor (
-			receive top (1)  
-				@body = cast(message_body as xml)
-				,@handle = conversation_handle
-				,@received = convert(datetime, switchoffset(message_enqueue_time, datepart(tzoffset,sysdatetimeoffset())))
-			from dbo.GenericQueue
-		), timeout 500	  
+	waitfor (
+		receive top (1)  
+			@body = message_body
+			,@handle = conversation_handle
+			,@received = message_enqueue_time
+		from dbo.GenericQueue
+	), timeout 500 --milliseconds
 
-		if (@@rowcount = 0 or @body is null)
+	if (@@rowcount != 0)
+	begin
+		if @body is not null
 		begin
-			break;
+			begin try
+				insert into dbo.GenericMessages (Received, Processed, Body)
+				select
+					convert(datetime, switchoffset(@received, datepart(tzoffset,sysdatetimeoffset()))) as Received
+					, getdate() as Processed
+					, cast(@body as xml) as Body
+			end try
+			begin catch
+				declare 
+					@error int = error_number()
+					, @message nvarchar(4000) = error_message();
+
+				end conversation @handle with error = @error description = @message;
+
+			end catch
 		end
-		else
-		begin
-			insert into dbo.GenericMessages (Received, Processed, Body)
-			values(@received, getdate(), @body);
 
-			end conversation @handle;
-		end		
-	end
+		end conversation @handle;
+	end		
 end
 go
 
@@ -102,7 +111,7 @@ create queue GenericQueue with
 status = on 
 , activation (
 	status = on
-	, max_queue_readers = 1
+	, max_queue_readers = 1 --number of instances of ProcessGenericMessageQueue
 	, procedure_name = dbo.ProcessGenericMessageQueue
 	, execute as owner
 ); 
@@ -122,15 +131,17 @@ go
 
 
 --send message 
-declare @handle uniqueidentifier;
+begin transaction
+	declare @handle uniqueidentifier;
 
-begin dialog @handle
-from service GenericService
-to service 'GenericService'
-on contract GenericContract
-with encryption=off;
+	begin dialog @handle
+	from service GenericService
+	to service 'GenericService'
+	on contract GenericContract
+	with encryption=off;
 
-send on conversation @handle message type GenericXmlMessageType ('<hello>world</hello>');
+	send on conversation @handle message type GenericXmlMessageType ('<hello>world</hello>');
+commit transaction
 go
 
 
@@ -141,7 +152,7 @@ go
 select * from dbo.GenericQueue
 select * from sys.transmission_queue 
 select * from dbo.GenericMessages
--- also check IP addressed, port numbers and firewall rules
+-- also check IP addresses, port numbers and firewall rules
 go
 
 
