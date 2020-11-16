@@ -87,7 +87,7 @@ begin
 					, @message nvarchar(4000) = error_message();
 
 				end conversation @handle with error = @error description = @message;
-
+				return;
 			end catch
 		end
 
