@@ -39,7 +39,7 @@ SQL Medic
 <ul class="blog">
 	{% for file in scripts %}
 	<li class="blog">
-		<time datetime="2014-09-20" class="icon">
+		<time datetime="{{ file.date.strftime('%Y') }}-{{ file.date.strftime('%m') }}-{{ file.date.strftime('%d') }}" class="icon">
 			<em>{{ file.date.strftime('%A') }}</em>
 			<strong>{{ file.date.strftime('%B') }}</strong>
 			<span>{{ file.date.strftime('%d') }}</span>
