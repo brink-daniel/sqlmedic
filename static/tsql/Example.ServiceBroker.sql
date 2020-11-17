@@ -62,37 +62,45 @@ begin
 		@body varbinary(max), 
 		@received datetimeoffset;
 
-	waitfor (
-		receive top (1)  
-			@body = message_body
-			,@handle = conversation_handle
-			,@received = message_enqueue_time
-		from dbo.GenericQueue
-	), timeout 500 --milliseconds
-
-	if (@@rowcount != 0)
+	while (1=1)
 	begin
-		if @body is not null
+
+		waitfor (
+			receive top (1)  
+				@body = message_body
+				,@handle = conversation_handle
+				,@received = message_enqueue_time
+			from dbo.GenericQueue
+		), timeout 500 --milliseconds
+
+		if (@@rowcount != 0)
 		begin
-			begin try
-				insert into dbo.GenericMessages (Received, Processed, Body)
-				select
-					convert(datetime, switchoffset(@received, datepart(tzoffset,sysdatetimeoffset()))) as Received
-					, getdate() as Processed
-					, cast(@body as xml) as Body
-			end try
-			begin catch
-				declare 
-					@error int = error_number()
-					, @message nvarchar(4000) = error_message();
+			if @body is not null
+			begin
+				begin try
+					insert into dbo.GenericMessages (Received, Processed, Body)
+					select
+						convert(datetime, switchoffset(@received, datepart(tzoffset,sysdatetimeoffset()))) as Received
+						, getdate() as Processed
+						, cast(@body as xml) as Body
+				end try
+				begin catch
+					declare 
+						@error int = error_number()
+						, @message nvarchar(4000) = error_message();
 
-				end conversation @handle with error = @error description = @message;
-				return;
-			end catch
+					end conversation @handle with error = @error description = @message;
+					continue;
+				end catch
+			end
+
+			end conversation @handle;
 		end
-
-		end conversation @handle;
-	end		
+		else
+		begin
+			break;
+		end
+	end	--while (1=1)
 end
 go
 
@@ -131,17 +139,15 @@ go
 
 
 --send message 
-begin transaction
-	declare @handle uniqueidentifier;
+declare @handle uniqueidentifier;
 
-	begin dialog @handle
-	from service GenericService
-	to service 'GenericService'
-	on contract GenericContract
-	with encryption=off;
+begin dialog @handle
+from service GenericService
+to service 'GenericService'
+on contract GenericContract
+with encryption=off;
 
-	send on conversation @handle message type GenericXmlMessageType ('<hello>world</hello>');
-commit transaction
+send on conversation @handle message type GenericXmlMessageType ('<hello>world</hello>');
 go
 
 
