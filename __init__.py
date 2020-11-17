@@ -15,7 +15,7 @@ def home():
 	d = datetime.now() - timedelta(days=60)
 	script = [f for f in filter(lambda x: x.date >= d, script_collection)]
 	script = sorted(script, key=lambda x: (x.date, x.title), reverse=True)
-	return render_template("home.html", scripts=script)
+	return render_template("home.html", scripts=script, scripts_count=len(script_collection))
 
 
 @app.route("/index/")
