@@ -3,7 +3,7 @@
 	<Author>Daniel Brink</Author>
 	<Date>14 Jul 2020</Date>
 	<Title>Current activity</Title>
-	<Description>See all user queries that are currently running, including the query plan and job names.</Description>
+	<Description>See all user queries that are currently running, including the query plan, job names and details about blocking queries.</Description>
 	<Pass></Pass>
 	<Fail></Fail>
 	<Check>false</Check>
@@ -25,7 +25,8 @@ select
 	r.session_id as spid
 	,r.blocking_session_id as blocked_by
 	,r.status
-	,isnull(cast(object_name(t.objectid, t.dbid) as varchar(1000)), i.event_info) as object_name	
+	,isnull(cast(object_name(t.objectid, t.dbid) as varchar(1000)), i.event_info) as object_name
+	,b.event_info as blocked_by_query	
 	,db_name(r.database_id) as [db]	
 	,convert(decimal(26,2), r.cpu_time / 1000.0) as cpu_time
 	,convert(decimal(26,2), r.total_elapsed_time / 1000.0) as total_time
@@ -48,9 +49,11 @@ from
 	on s.session_id = r.session_id
 		and s.is_user_process = 1
 	
-	cross apply sys.dm_exec_sql_text(r.sql_handle) as t
+	outer apply sys.dm_exec_sql_text(r.sql_handle) as t
 
-	cross apply sys.dm_exec_input_buffer(s.session_id, r.request_id) as i
+	outer apply sys.dm_exec_input_buffer(s.session_id, r.request_id) as i
+
+	outer apply sys.dm_exec_input_buffer(r.blocking_session_id, null) as b
 
 	outer apply sys.dm_exec_text_query_plan(r.plan_handle, r.statement_start_offset, r.statement_end_offset) as p
 
