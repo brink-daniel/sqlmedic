@@ -61,9 +61,7 @@ from
 	on j.job_id = case when s.program_name like 'SQLAgent - TSQL JobStep (Job % : Step %)' then cast(Convert(binary(16), substring(s.program_name, 30, 34), 1) as uniqueidentifier) else null end
 				
 		
-where 
-	r.session_id <> @@spid
-	and r.cpu_time > 0
+where r.session_id <> @@spid
 
 order by
 	r.total_elapsed_time desc
