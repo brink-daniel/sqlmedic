@@ -29,7 +29,7 @@ Index
 
 		$.extend($.expr[':'], {
 			'containsi': function (elem, i, match, array) {
-				return (elem.textContent || elem.innerText || '').toLowerCase()
+				return ((elem.textContent || elem.innerText || '').concat(elem.children[0].title || '')).toLowerCase()
 					.indexOf((match[3] || "").toLowerCase()) >= 0;
 			}
 		});		
@@ -57,6 +57,7 @@ Index
 			$('#library').find('li:hidden').show();
 			$('#search-results').empty();
 			$('#search').val('');
+			$('#search').focus();
 		};
 
 		var getUrlParameter = function getUrlParameter(sParam) {
@@ -107,7 +108,7 @@ Index
 		$('#nav-index').addClass('active');
 		
 
-		
+		$('#search').focus();
 	});
 
 
