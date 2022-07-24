@@ -4,7 +4,7 @@ Anything can be fixed
 SQL Medic is a public t-sql script library for SQL Developers and Administrators. Please feel free to use any of the scripts or take inspiration from them. If you see an error, would like to contribute a script to the library or need help with your SQL Server, please contact Daniel at brink.daniel@gmail.com
 
 
-[https://sqlmedic.com](https://sqlmedic.com)
+[https://github.com/brink-daniel/sqlmedic/tree/master/static/tsql](https://github.com/brink-daniel/sqlmedic/tree/master/static/tsql)
 
 
 ## Categories
